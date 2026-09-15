@@ -1,139 +1,891 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlaylistR</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlaylistR</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: white;
+}
+
+/* HEADER */
+header {
+    height: 70px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #181818;
+    border-bottom: 1px solid #292929;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    background: #282828;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #3a3a3a;
+}
+
+.main-button {
+    background: #1db954;
+    color: black;
+    font-weight: bold;
+}
+
+.main-button:hover {
+    background: #1ed760;
+}
+
+/* PAGES */
+.page {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #b3b3b3;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* PLAYLIST CARDS */
+h2 {
+    margin: 30px 0 15px;
+}
+
+.playlist-card {
+    background: #181818;
+    padding: 22px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #292929;
+}
+
+.playlist-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.playlist-card p {
+    color: #b3b3b3;
+    margin: 8px 0;
+}
+
+.author {
+    color: #1db954 !important;
+}
+
+.rating {
+    margin: 15px 0;
+    font-size: 20px;
+}
+
+.star {
+    cursor: pointer;
+    color: #555;
+    font-size: 25px;
+}
+
+.star:hover {
+    color: gold;
+}
+
+.spotify-button {
+    display: inline-block;
+    text-decoration: none;
+    background: #1db954;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* PROFILE */
+.profile-card {
+    background: #181818;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.avatar {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.profile-card p {
+    color: #b3b3b3;
+    margin: 10px 0 20px;
+}
+
+/* FORM */
+.form-card {
+    max-width: 600px;
+    margin: auto;
+    background: #181818;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.form-card h1 {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 7px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #282828;
+    color: white;
+    font-size: 15px;
+}
+
+textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.form-card button {
+    margin-top: 20px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 450px;
+    background: #181818;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.modal-content input,
+.modal-content textarea {
+    margin-top: 15px;
+}
+
+.modal-content button {
+    margin-top: 15px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+    header {
+        height: auto;
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <header>
-        <div class="logo">🎵 PlaylistR</div>
+<header>
 
-        <nav>
-            <button onclick="showPage('home')">Home</button>
-            <button onclick="showPage('profile')">My Profile</button>
-            <button onclick="showPage('create')">+ New Post</button>
-        </nav>
-    </header>
+    <div class="logo">🎵 PlaylistR</div>
 
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('profile')">My Profile</button>
+        <button onclick="showPage('create')">+ New Post</button>
+    </nav>
 
-    <!-- HOME -->
-    <main id="home" class="page">
-
-        <section class="hero">
-            <h1>Discover great playlists.</h1>
-            <p>Share your Spotify playlists and let your friends rate them.</p>
-
-            <button class="main-button" onclick="showPage('create')">
-                Share a Playlist
-            </button>
-        </section>
-
-        <section>
-            <h2>🎵 Recent Playlists</h2>
-            <div id="playlistContainer"></div>
-        </section>
-
-    </main>
+</header>
 
 
-    <!-- PROFILE -->
-    <main id="profile" class="page hidden">
+<!-- HOME -->
 
-        <div class="profile-card">
+<main id="home" class="page">
 
-            <div class="avatar" id="profileAvatar">👤</div>
+    <section class="hero">
 
-            <h1 id="profileName">Your Name</h1>
+        <h1>Discover great playlists.</h1>
 
-            <p id="profileBio">Your bio goes here.</p>
+        <p>
+            Share your Spotify playlists and let your friends rate them.
+        </p>
 
-            <button onclick="editProfile()">Edit Profile</button>
+        <button
+            class="main-button"
+            onclick="showPage('create')"
+        >
+            Share a Playlist
+        </button>
 
-        </div>
+    </section>
 
-        <h2>My Playlists</h2>
+    <section>
 
-        <div id="myPlaylists"></div>
+        <h2>🎵 Recent Playlists</h2>
 
-    </main>
+        <div id="playlistContainer"></div>
 
+    </section>
 
-    <!-- CREATE POST -->
-    <main id="create" class="page hidden">
-
-        <div class="form-card">
-
-            <h1>🎵 Create Playlist Post</h1>
-
-            <label>Playlist Title</label>
-            <input
-                id="playlistTitle"
-                type="text"
-                placeholder="e.g. Late Night Drives"
-            >
-
-            <label>Spotify Playlist Link</label>
-            <input
-                id="playlistLink"
-                type="url"
-                placeholder="Paste your Spotify playlist link"
-            >
-
-            <label>Description</label>
-            <textarea
-                id="playlistDescription"
-                placeholder="Tell people about your playlist..."
-            ></textarea>
-
-            <button class="main-button" onclick="createPost()">
-                Post Playlist
-            </button>
-
-        </div>
-
-    </main>
+</main>
 
 
-    <!-- EDIT PROFILE -->
-    <div id="profileModal" class="modal hidden">
+<!-- PROFILE -->
 
-        <div class="modal-content">
+<main id="profile" class="page hidden">
 
-            <h2>Edit Profile</h2>
+    <div class="profile-card">
 
-            <input
-                id="newName"
-                placeholder="Username"
-            >
+        <div class="avatar" id="profileAvatar">👤</div>
 
-            <input
-                id="newAvatar"
-                placeholder="Avatar emoji (e.g. 😎)"
-            >
+        <h1 id="profileName">Your Name</h1>
 
-            <textarea
-                id="newBio"
-                placeholder="Short bio"
-            ></textarea>
+        <p id="profileBio">I love music!</p>
 
-            <button class="main-button" onclick="saveProfile()">
-                Save
-            </button>
-
-            <button onclick="closeModal()">
-                Cancel
-            </button>
-
-        </div>
+        <button onclick="editProfile()">
+            Edit Profile
+        </button>
 
     </div>
 
+    <h2>My Playlists</h2>
 
-    <script src="script.js"></script>
+    <div id="myPlaylists"></div>
+
+</main>
+
+
+<!-- CREATE POST -->
+
+<main id="create" class="page hidden">
+
+    <div class="form-card">
+
+        <h1>🎵 Create Playlist Post</h1>
+
+        <label>Playlist Title</label>
+
+        <input
+            id="playlistTitle"
+            type="text"
+            placeholder="e.g. Late Night Drives"
+        >
+
+        <label>Spotify Playlist Link</label>
+
+        <input
+            id="playlistLink"
+            type="url"
+            placeholder="Paste your Spotify playlist link"
+        >
+
+        <label>Description</label>
+
+        <textarea
+            id="playlistDescription"
+            placeholder="Tell people about your playlist..."
+        ></textarea>
+
+        <button
+            class="main-button"
+            onclick="createPost()"
+        >
+            Post Playlist
+        </button>
+
+    </div>
+
+</main>
+
+
+<!-- EDIT PROFILE -->
+
+<div id="profileModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <h2>Edit Profile</h2>
+
+        <input
+            id="newName"
+            placeholder="Username"
+        >
+
+        <input
+            id="newAvatar"
+            placeholder="Avatar emoji (e.g. 😎)"
+        >
+
+        <textarea
+            id="newBio"
+            placeholder="Short bio"
+        ></textarea>
+
+        <button
+            class="main-button"
+            onclick="saveProfile()"
+        >
+            Save
+        </button>
+
+        <button onclick="closeModal()">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+let profile = JSON.parse(
+    localStorage.getItem("profile")
+) || {
+    name: "Your Name",
+    avatar: "👤",
+    bio: "I love music!"
+};
+
+
+let playlists = JSON.parse(
+    localStorage.getItem("playlists")
+) || [];
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageName) {
+
+    document.querySelectorAll(".page")
+        .forEach(page => {
+            page.classList.add("hidden");
+        });
+
+    document.getElementById(pageName)
+        .classList.remove("hidden");
+
+    if (pageName === "home") {
+        displayPlaylists();
+    }
+
+    if (pageName === "profile") {
+        displayProfile();
+    }
+}
+
+
+/* =========================
+   CREATE POST
+========================= */
+
+function createPost() {
+
+    const title =
+        document.getElementById("playlistTitle")
+        .value.trim();
+
+    const link =
+        document.getElementById("playlistLink")
+        .value.trim();
+
+    const description =
+        document.getElementById("playlistDescription")
+        .value.trim();
+
+
+    if (!title || !link) {
+
+        alert(
+            "Please enter a title and Spotify link."
+        );
+
+        return;
+    }
+
+
+    if (!link.includes("spotify.com")) {
+
+        alert(
+            "Please enter a valid Spotify link."
+        );
+
+        return;
+    }
+
+
+    const playlist = {
+
+        id: Date.now(),
+
+        title: title,
+
+        link: link,
+
+        description: description,
+
+        author: profile.name,
+
+        ratingTotal: 0,
+
+        ratingCount: 0
+
+    };
+
+
+    playlists.unshift(playlist);
+
+    saveData();
+
+
+    document.getElementById("playlistTitle")
+        .value = "";
+
+    document.getElementById("playlistLink")
+        .value = "";
+
+    document.getElementById("playlistDescription")
+        .value = "";
+
+
+    alert("Playlist posted! 🎵");
+
+    showPage("home");
+}
+
+
+/* =========================
+   DISPLAY PLAYLISTS
+========================= */
+
+function displayPlaylists() {
+
+    const container =
+        document.getElementById(
+            "playlistContainer"
+        );
+
+    container.innerHTML = "";
+
+
+    if (playlists.length === 0) {
+
+        container.innerHTML = `
+            <p style="color:#aaa">
+                No playlists yet.
+                Be the first to post one!
+            </p>
+        `;
+
+        return;
+    }
+
+
+    playlists.forEach(playlist => {
+
+        const average =
+            playlist.ratingCount === 0
+            ? "No ratings"
+            : (
+                playlist.ratingTotal /
+                playlist.ratingCount
+            ).toFixed(1);
+
+
+        const card =
+            document.createElement("div");
+
+        card.className = "playlist-card";
+
+
+        card.innerHTML = `
+
+            <h3>
+                ${escapeHTML(playlist.title)}
+            </h3>
+
+            <p class="author">
+                👤 ${escapeHTML(playlist.author)}
+            </p>
+
+            <p>
+                ${escapeHTML(playlist.description)}
+            </p>
+
+            <div class="rating">
+                ⭐ <strong>${average}</strong>
+
+                ${
+                    playlist.ratingCount > 0
+                    ? `(${playlist.ratingCount} ratings)`
+                    : ""
+                }
+            </div>
+
+            <div>
+                ${createStars(playlist.id)}
+            </div>
+
+            <br>
+
+            <a
+                class="spotify-button"
+                href="${playlist.link}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                🎵 Open Spotify
+            </a>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================
+   STAR RATING
+========================= */
+
+function createStars(id) {
+
+    let html = "";
+
+    for (let i = 1; i <= 5; i++) {
+
+        html += `
+            <span
+                class="star"
+                onclick="ratePlaylist(${id}, ${i})"
+            >
+                ★
+            </span>
+        `;
+
+    }
+
+    return html;
+}
+
+
+function ratePlaylist(id, rating) {
+
+    const playlist =
+        playlists.find(
+            playlist => playlist.id === id
+        );
+
+
+    if (!playlist) return;
+
+
+    playlist.ratingTotal += rating;
+
+    playlist.ratingCount++;
+
+
+    saveData();
+
+    displayPlaylists();
+
+
+    alert(
+        `You rated this playlist ${rating}/5 ⭐`
+    );
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function displayProfile() {
+
+    document.getElementById("profileName")
+        .textContent = profile.name;
+
+    document.getElementById("profileAvatar")
+        .textContent = profile.avatar;
+
+    document.getElementById("profileBio")
+        .textContent = profile.bio;
+
+
+    const container =
+        document.getElementById(
+            "myPlaylists"
+        );
+
+    container.innerHTML = "";
+
+
+    const mine =
+        playlists.filter(
+            playlist =>
+                playlist.author === profile.name
+        );
+
+
+    if (mine.length === 0) {
+
+        container.innerHTML = `
+            <p style="color:#aaa">
+                You haven't posted any playlists yet.
+            </p>
+        `;
+
+        return;
+    }
+
+
+    mine.forEach(playlist => {
+
+        const average =
+            playlist.ratingCount === 0
+            ? "No ratings"
+            : (
+                playlist.ratingTotal /
+                playlist.ratingCount
+            ).toFixed(1);
+
+
+        container.innerHTML += `
+
+            <div class="playlist-card">
+
+                <h3>
+                    ${escapeHTML(playlist.title)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(playlist.description)}
+                </p>
+
+                <div class="rating">
+                    ⭐ ${average}
+                </div>
+
+                <a
+                    class="spotify-button"
+                    href="${playlist.link}"
+                    target="_blank"
+                >
+                    🎵 Open Spotify
+                </a>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+function editProfile() {
+
+    document.getElementById("newName")
+        .value = profile.name;
+
+    document.getElementById("newAvatar")
+        .value = profile.avatar;
+
+    document.getElementById("newBio")
+        .value = profile.bio;
+
+
+    document.getElementById("profileModal")
+        .classList.remove("hidden");
+}
+
+
+function saveProfile() {
+
+    const newName =
+        document.getElementById("newName")
+        .value.trim();
+
+    const newAvatar =
+        document.getElementById("newAvatar")
+        .value.trim();
+
+    const newBio =
+        document.getElementById("newBio")
+        .value.trim();
+
+
+    if (!newName) {
+
+        alert(
+            "Please enter a username."
+        );
+
+        return;
+    }
+
+
+    const oldName = profile.name;
+
+
+    profile.name = newName;
+
+    profile.avatar =
+        newAvatar || "👤";
+
+    profile.bio = newBio;
+
+
+    playlists.forEach(playlist => {
+
+        if (playlist.author === oldName) {
+            playlist.author = newName;
+        }
+
+    });
+
+
+    saveData();
+
+    closeModal();
+
+    displayProfile();
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeModal() {
+
+    document.getElementById(
+        "profileModal"
+    ).classList.add("hidden");
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveData() {
+
+    localStorage.setItem(
+        "profile",
+        JSON.stringify(profile)
+    );
+
+    localStorage.setItem(
+        "playlists",
+        JSON.stringify(playlists)
+    );
+
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
+/* =========================
+   START
+========================= */
+
+displayPlaylists();
+displayProfile();
+
+</script>
 
 </body>
 </html>
